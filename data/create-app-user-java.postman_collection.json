@@ -1,0 +1,233 @@
+{
+	"info": {
+		"_postman_id": "c795561e-b1ed-4ea7-82ac-bb5fc287fcfc",
+		"name": "create-app-user-java",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "0 - token-local",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"wvillanueva@dominio.cl\",\r\n    \"password\": \"Willy2410%\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9090/api/v1/auth",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"api",
+						"v1",
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1 - caso 201: Create User",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ3dmlsbGFudWV2YUBkb21pbmlvLmNsIiwicm9sZSI6IlVTRVIiLCJleHAiOjE3MDIyNDUzNTMsImlhdCI6MTcwMjI0NDM1M30.ESG_oSf6OdtHjNO7XjnohqGK6rZwGns78BmbNcC7aRb_jUPbwRSRvuDyTkoArjl1XZwyxH6OYsr02WUP2ZfFmw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Luis Villanueva\",\r\n    \"email\": \"Lvillanueva@dominio.cl\",\r\n    \"password\": \"Luis1234%\",\r\n    \"phones\": [\r\n        {\r\n            \"number\": \"555555555\",\r\n            \"cityCode\": \"1\",\r\n            \"countryCode\": \"51\"\r\n        },\r\n        {\r\n            \"number\": \"666666666\",\r\n            \"cityCode\": \"1\",\r\n            \"countryCode\": \"51\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9090/api/v1/user",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"api",
+						"v1",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2 - caso 400 : Bad Request - Token invalido",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ3dmlsbGFudWV2YUBkb21pbmlvLmNsIiwicm9sZSI6IlVTRVIiLCJleHAiOjE3MDIyMzAxODUsImlhdCI6MTcwMjIzMDA4NX0.kY5y2nKObuQsys3V00xQ8hFpV0He88SbE0KsN8nK9YePZo32Cg8IZ1UdYatz2rPvkRyz2MIM1_sjhktKYmlv5w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Luis Villanueva\",\r\n    \"email\": \"Lvillanueva@dominio.cl\",\r\n    \"password\": \"Luis1234%\",\r\n    \"phones\": [\r\n        {\r\n            \"number\": \"555555555\",\r\n            \"cityCode\": \"1\",\r\n            \"countryCode\": \"51\"\r\n        },\r\n        {\r\n            \"number\": \"666666666\",\r\n            \"cityCode\": \"1\",\r\n            \"countryCode\": \"51\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9090/api/v1/user",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"api",
+						"v1",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3 - caso 400 : Bad Request - Formato Email Incorrecto",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ3dmlsbGFudWV2YUBkb21pbmlvLmNsIiwicm9sZSI6IlVTRVIiLCJleHAiOjE3MDIyMzM4ODMsImlhdCI6MTcwMjIzMzc4M30.z9ZB112FPmYLO_IF8UXVMoLh3ZyXj5WuiEPuCq_rmXyNkawS-AVwZdn7djvGN6Bb5LhRFYlHaqBSLP8DV9p6oA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Luis Villanueva\",\r\n    \"email\": \"Lvillanueva@cl\",\r\n    \"password\": \"Luis1234%\",\r\n    \"phones\": [\r\n        {\r\n            \"number\": \"555555555\",\r\n            \"cityCode\": \"1\",\r\n            \"countryCode\": \"51\"\r\n        },\r\n        {\r\n            \"number\": \"666666666\",\r\n            \"cityCode\": \"1\",\r\n            \"countryCode\": \"51\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9090/api/v1/user",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"api",
+						"v1",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4 - caso 400 : Bad Request - Formato Contraseña incorrecta",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ3dmlsbGFudWV2YUBkb21pbmlvLmNsIiwicm9sZSI6IlVTRVIiLCJleHAiOjE3MDIyMzQyNjUsImlhdCI6MTcwMjIzNDE2NX0.kFgmYGUPP3fTtMHR0RJz15UOoif558jw-LUWHMnZvB8hfBKGapKC7uxjrpZSMKm3QLFnGiYQo1DCi8pHE3Hdhw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Luis Villanueva\",\r\n    \"email\": \"Lvillanueva@dominio.cl\",\r\n    \"password\": \"Luis1234\",\r\n    \"phones\": [\r\n        {\r\n            \"number\": \"555555555\",\r\n            \"cityCode\": \"1\",\r\n            \"countryCode\": \"51\"\r\n        },\r\n        {\r\n            \"number\": \"666666666\",\r\n            \"cityCode\": \"1\",\r\n            \"countryCode\": \"51\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9090/api/v1/user",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"api",
+						"v1",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5 - caso 400 : Bad Request - Conflicto de data",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ3dmlsbGFudWV2YUBkb21pbmlvLmNsIiwicm9sZSI6IlVTRVIiLCJleHAiOjE3MDIyNDUzNTMsImlhdCI6MTcwMjI0NDM1M30.ESG_oSf6OdtHjNO7XjnohqGK6rZwGns78BmbNcC7aRb_jUPbwRSRvuDyTkoArjl1XZwyxH6OYsr02WUP2ZfFmw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Luis Villanueva\",\r\n    \"email\": \"Lvillanueva@dominio.cl\",\r\n    \"password\": \"Luis1234%\",\r\n    \"phones\": [\r\n        {\r\n            \"number\": \"555555555\",\r\n            \"cityCode\": \"1\",\r\n            \"countryCode\": \"51\"\r\n        },\r\n        {\r\n            \"number\": \"666666666\",\r\n            \"cityCode\": \"1\",\r\n            \"countryCode\": \"51\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:9090/api/v1/user",
+					"host": [
+						"localhost"
+					],
+					"port": "9090",
+					"path": [
+						"api",
+						"v1",
+						"user"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

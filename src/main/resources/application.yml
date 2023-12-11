@@ -1,0 +1,30 @@
+application:
+  regex:
+    email: '^[a-zA-Z0-9]+[\w\-\.]*@[a-zA-Z0-9]+[\w\-]*[\.]cl$'
+    password: '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&\.\-\_])[A-Za-z\d@$!%?&\.\-\_]{8,20}$'
+  jwt:
+    secret: nisum1234
+    expire: 1000000
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:usuarios
+    username: nisum
+    password: 123456
+    driverClassName: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: create-drop
+  h2:
+    console:
+      enabled: true
+
+logging:
+  level:
+    org:
+      hibernate:
+        sql: debug
+server:
+  port: 9090

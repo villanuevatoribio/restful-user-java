@@ -1,0 +1,188 @@
+openapi: '3.0.1'
+
+info:
+  title: Api Create User v1
+  version: '1.0.0'
+  description: Api que permiete la creación de usuarios
+
+servers:
+  - url: http://localhost:9090/api/v1
+
+paths:
+  /user:
+    post:
+      summary: Guardar Usuarios
+      description: |
+        ### Acerca de la funcionalidad expuesta  
+        Permite realizar los registros de un usuario con los siguientes valores:
+        
+        ### Requisitos
+            Java 17
+            Maven
+            Base de datos H2
+            OpenJPA (para la persistencia)
+            Framework Spring Boot
+        |
+      operationId: saveUser
+      parameters:
+        - name: Authorization
+          in: header
+          description: Token de Autorizacion
+          required: true
+          schema:
+            type: string
+            example: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ3dmlsbGFudWV2YUBkb21pbmlvLmNsIiwicm9sZSI6IlVTRVIiLCJleHAiOjE3MDIyMjY0MzgsImlhdCI6MTcwMjIyNjMzOH0.LSwI-kcHtGalHfrSwbHYKJQDUzvzXLYQhqCIKNJ2MdqrRcpxyOlglWmxz1EzifhFgUo71Rt6i5nDo7gSdiGBHA
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRequest'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        409:
+          description: Conflict for data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /auth:
+    post:
+      summary: User authentication
+      operationId: authenticate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthRequest'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JwtResponse'
+
+components:
+  schemas:
+    UserRequest:
+      type: object
+      description: Data element for user
+      required:
+        - name
+        - email
+        - password
+        - phones
+      properties:
+        name:
+          type: string
+          example: 'William Villanueva'
+          description: 'Nombres completos'
+        email:
+          type: string
+          pattern: ^[a-zA-Z0-9]+[\w\-\.]*@[a-zA-Z0-9]+[\w\-]*[\.]cl$
+          example: 'wvillanueva@dominio.cl'
+          description: 'Email con el formato <username>@<dominio>.cl'
+        password:
+          type: string
+          pattern: ^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&\.\-\_])[A-Za-z\d@$!%?&\.\-\_]{8,20}$
+          example: 'Willy2410%'
+          description: 'Al menos una letra mayúscula, una letra minúscula, un número, un carácter especial (@, $, !, %, ?, &, ., -, _), mínimo ocho y máximo 20 caracteres'
+        phones:
+          type: array
+          items:
+            $ref: '#/components/schemas/PhoneRequest'
+    PhoneRequest:
+      type: object
+      description: Data element for phone
+      required:
+        - number
+        - cityCode
+        - countryCode
+      properties:
+        number:
+          type: string
+          example: '999999999'
+          description: 'Número de celular o teléfono'
+        cityCode:
+          type: string
+          example: '1'
+          description: 'Código telefónico de ciudad'
+        countryCode:
+          type: string
+          example: '51'
+          description: 'Código telefónico de país'
+    UserResponse:
+      type: object
+      description: Data for user response
+      required:
+        - id
+        - created
+        - modified
+        - lastLogin
+        - token
+        - isActive
+      properties:
+        id:
+          type: string
+          example: '66564466-546565474u656-12df5s4147re1'
+          description: 'Id de usuario'
+        created:
+          type: string
+          example: '2023-12-10'
+          description: 'Fecha de creación de usuario'
+        modified:
+          type: string
+          example: '2023-12-10'
+          description: 'Fecha de modificación de usuario'
+        lastLogin:
+          type: string
+          example: '2023-12-10'
+          description: 'Fecha de última sesión'
+        token:
+          type: string
+          example: 'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ3dmlsbGFudWV2YUBkb21pbmlvLmNsIiwicm9sZSI6IlVTRVIiLCJleHAiOjE3MDIyMjY0MzgsImlhdCI6MTcwMjIyNjMzOH0.LSwI-kcHtGalHfrSwbHYKJQDUzvzXLYQhqCIKNJ2MdqrRcpxyOlglWmxz1EzifhFgUo71Rt6i5nDo7gSdiGBHA'
+          description: 'Último token de creación o sesión'
+        isActive:
+          type: boolean
+          example: true
+          description: 'Estado de actividad'
+    ErrorResponse:
+      type: object
+      description: Data for error response
+      properties:
+        message:
+          type: string
+          example: 'Error'
+          description: 'Mensaje de error'
+    AuthRequest:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          example: 'wvillanueva@dominio.cl'
+          description: 'Email de usuario'
+        password:
+          type: string
+          example: 'Willy2410%'
+          description: 'Password de usuario'
+    JwtResponse:
+      type: object
+      properties:
+        jwt:
+          type: string
+          example: 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ3dmlsbGFudWV2YUBkb21pbmlvLmNsIiwicm9sZSI6IlVTRVIiLCJleHAiOjE3MDIyMjY0MzgsImlhdCI6MTcwMjIyNjMzOH0.LSwI-kcHtGalHfrSwbHYKJQDUzvzXLYQhqCIKNJ2MdqrRcpxyOlglWmxz1EzifhFgUo71Rt6i5nDo7gSdiGBHA'
+          description: 'JWT generado'
