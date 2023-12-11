@@ -14,7 +14,7 @@ Se ha implementado con Spring Boot, Spring Data JPA, Spring Security, JWT, H2, L
 
 ## Ejecutar API RESTful de manera local
 
-1. Clonar el repositorio de manera local y ubicarse en la carpeta raíz, por comandos era : ```git clone ""```
+1. Clonar el repositorio de manera local y ubicarse en la carpeta raíz, por comandos era : ```git clone git@github.com:villanuevatoribio/restful-user-java.git ```
 
 2. Ejecutar un `clean` e `install` con maven, ya se por comandos o desde un IDE. Esto permitirá que se generen las clases del contrato con  OpenApi, por comandos sería: ```mvn clean install```
 
